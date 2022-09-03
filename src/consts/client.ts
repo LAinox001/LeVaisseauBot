@@ -1,4 +1,4 @@
-import {Client, GatewayIntentBits, Collection, Message, MessagePayload} from "discord.js";
+import {Client, GatewayIntentBits} from "discord.js";
 
 export const client = new Client({
     intents: [

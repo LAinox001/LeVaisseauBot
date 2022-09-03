@@ -24,7 +24,7 @@ client.once("ready", () => {
             const wordToSay = currentWord.substring(indexToCut);
             if (msg.content === wordToSay){
                 // Si l'user qui a répondu n'existe pas encore on le crée, on set son score à 1 et on set 'responded' à true
-                // Sinon on incrémente son score de 1 et on set 'responded' à false
+                // Sinon on incrémente son score de 1 et on set 'responded' à true si 'responded' était à false (sinon on ne change rien)
                 database.prepare(`INSERT INTO scores (id, score, responded)
                                 VALUES(?, 1, true)
                                 ON CONFLICT(id)
@@ -36,8 +36,8 @@ client.once("ready", () => {
 });
 
 function startCronJob(array: string[]) {
-    cron.schedule("00 56 16 * * *", async () => {
-        // Reset toute la colonne 'resonded' de la table score
+    cron.schedule("10 16 17 * * *", async () => {
+        // Reset toute la colonne 'responded' de la table score
         database.prepare("UPDATE scores SET responded=false;").run();
         const channel: TextChannel = client.channels.cache.find(c => c.id === config.CHANNEL_ID) as TextChannel;
         const server: Guild = client.guilds.cache.get(config.GUILD_ID) as Guild;
@@ -47,7 +47,9 @@ function startCronJob(array: string[]) {
 
         await channel.send("<@&" + roleId + ">");
         await channel.send({content: currentWord, tts:true});
-        await channel.send(`Définition de ${currentWord} : \n - https://www.larousse.fr/dictionnaires/francais/${currentWord} \n - https://www.universalis.fr/dictionnaire/${currentWord}`);
+        await channel.send(`Définition de ${currentWord} : \n 
+        - https://www.larousse.fr/dictionnaires/francais/${currentWord} \n 
+        - https://www.universalis.fr/dictionnaire/${currentWord}`);
     }, {
         timezone: "Europe/Paris"
     });

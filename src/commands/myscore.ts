@@ -1,5 +1,5 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {Collection, CommandInteraction, Guild, GuildMember} from "discord.js";
+import {CommandInteraction} from "discord.js";
 import database from "../database/database";
 
 export const data = new SlashCommandBuilder().setName("score").setDescription("Display your score");
