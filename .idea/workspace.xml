@@ -2,7 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03bf7bc4-9359-4625-883f-12f944d55619" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commands/currentword.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commands/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commands/myscore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commands/top10.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/consts/client.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/consts/database.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/consts/wordsList.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/consts/wordsList.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/database.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/deploy-commands.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/consts/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,22 +40,26 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2EEN2xEPQrnr9EOF9VZZUe2alZK" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "js.linters.configure.manually.selectedeslint": "true",
-    "last_opened_file_path": "D:/Dev/DiBot",
+    "last_opened_file_path": "D:/Dev/DiBot v2/src/consts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.standard": "",
+    "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "D:\\Dev\\DiBot v2\\node_modules\\typescript\\lib",
@@ -49,18 +70,35 @@
       "sqlite"
     ],
     "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "SQLite"
+      "SQLite",
+      "MySQL"
     ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dev\DiBot v2\src\consts" />
+      <recent name="D:\Dev\DiBot v2\src\database" />
       <recent name="D:\Dev\DiBot v2" />
       <recent name="D:\Dev\DiBot v2\node_modules" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dev\DiBot v2\src\consts" />
       <recent name="D:\Dev\DiBot v2\src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <package-manager value="yarn" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -72,7 +110,7 @@
       <updated>1662156579441</updated>
       <workItem from="1662156580605" duration="433000" />
       <workItem from="1662157025974" duration="3621000" />
-      <workItem from="1662160709280" duration="1228000" />
+      <workItem from="1662160709280" duration="6284000" />
     </task>
     <servers />
   </component>
