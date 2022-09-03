@@ -4,19 +4,14 @@ type CallbackFunction = {
     (data: Buffer): void;
 }
 
+// Reading list from json file
 export default module.exports = {
     parseFile: function(callback: CallbackFunction) {
-        fs.readFile("src/consts/wordsList.json", function(err, data) {
+        fs.readFile("src/consts/wordsList.json", function(err: NodeJS.ErrnoException|null, data: Buffer) {
             if (err) {
-                console.log(err);
-                return;
+                throw err;
             }
             callback(data);
         });
     }
 };
-
-// Reading list from json file
-// export default exports.parseFile = function(callback: CallbackFunction) {
-//     fs.readFile("./wordsList.json", callback);
-// };
