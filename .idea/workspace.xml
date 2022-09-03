@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03bf7bc4-9359-4625-883f-12f944d55619" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commands/currentword.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/myscore.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/top10.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/consts/client.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/consts/database.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/consts/wordsList.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/consts/wordsList.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/database/database.sqlite" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/deploy-commands.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc" afterDir="false" />
+    <list default="true" id="03bf7bc4-9359-4625-883f-12f944d55619" name="Changes" comment="continuing setup">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/consts/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,8 +93,16 @@
       <updated>1662156579441</updated>
       <workItem from="1662156580605" duration="433000" />
       <workItem from="1662157025974" duration="3621000" />
-      <workItem from="1662160709280" duration="6284000" />
+      <workItem from="1662160709280" duration="6542000" />
     </task>
+    <task id="LOCAL-00001" summary="continuing setup">
+      <created>1662167283888</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1662167283888</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +118,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="contining setup" />
+    <MESSAGE value="continuing setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="continuing setup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
