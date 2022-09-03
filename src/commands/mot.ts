@@ -1,5 +1,9 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {CommandInteraction, User} from "discord.js";
+import {Collection, CommandInteraction, Guild, GuildMember, User} from "discord.js";
+import AppDataSource from "../database";
+import {Mot} from "../models/mot";
+import {client} from "../consts/client";
+import config from "../consts/config";
 
 export const data = new SlashCommandBuilder().setName("mot").setDescription("Créer un mot pour un utilisateur")
     .addUserOption(option =>
@@ -14,8 +18,47 @@ export const data = new SlashCommandBuilder().setName("mot").setDescription("Cr�
     );
 
 export async function execute(interaction: CommandInteraction) {
-    const targettedUser: User | null = interaction.options.getUser("utilisateur");
-    const mot: string = interaction.options.get("mot")?.value as string;
+    const targettedUser: User = interaction.options.getUser("utilisateur") as User;
+    const targettedUserId: string = targettedUser.id;
+    const motValue: string = interaction.options.get("mot")?.value as string;
+    const datasource = await AppDataSource;
+    const motRepository = datasource.getRepository(Mot);
+    
+    await interaction.reply(`Un nouveau a été proposé pour <@${targettedUserId}> pour le motif suivant :\n${motValue}`);
+    const messagePoll = await interaction.followUp("Réagissez à ce message pour approuver le mot.\nSi le mot atteint 4 réaction en 5 minutes, il sera approuvé");
+    messagePoll.react("👍");
 
-    return interaction.reply(`Un nouveau mot a été ajouté au carnet de <@${targettedUser?.id}>`);
+    // Après 5 minutes : 300000ms
+    setTimeout(async function () {
+        const reactionsNumber: number = (await messagePoll.reactions.resolve("👍")?.users.fetch())?.size as number;
+
+        if(reactionsNumber >= 4) {
+            const mot = new Mot();
+            mot.mot = motValue;
+            mot.userId = targettedUserId;
+            await motRepository.save(mot);
+
+            interaction.followUp(`Un nouveau mot a été ajouté au carnet de <@${targettedUserId}>`);
+
+            const motsNumberOfUser = (await motRepository.findBy({userId: targettedUserId})).length;
+            if(motsNumberOfUser % 3 === 0) {
+                const server: Guild = client.guilds.cache.get(config.GUILD_ID) as Guild;
+                const members: Collection<string, GuildMember> = await server.members.fetch();
+                const user = members.find(member => member.id === targettedUserId) as GuildMember;
+
+                // On met le user en prison
+                user.roles.add(config.BLOCKED_ROLE_ID);
+                await user.voice.setChannel(config.BLOCKED_VOICE_CHANNEL_ID);
+
+                // Après 5 minutes on le libère
+                return setTimeout(async function () {
+                    await user.roles.remove(config.BLOCKED_ROLE_ID);
+                    user.voice.setChannel(config.VOICE_CHANNEL_ID);
+                }, 300000);
+            }
+            return;
+        } else {
+            return interaction.followUp(`Le mot n'a pas été approuvé par le conseil de discipline.`);
+        }
+    }, 300000);
 }

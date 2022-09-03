@@ -1,16 +1,22 @@
 import {client} from "./consts/client";
 import config from "./consts/config";
-import database from "./database/database";
+import AppDataSource from "./database";
 import wordsList from "./consts/wordsList";
 import {Guild, Interaction, Role, TextChannel} from "discord.js";
 import * as cron from "node-cron";
-
 import * as commandModules from "./commands";
+import {Score} from "./models/score";
+import {Repository} from "typeorm";
+
 const commands = Object(commandModules);
+let scoreRepository: Repository<Score>;
 
 let currentWord: string = "";
 
-client.once("ready", () => {
+client.once("ready", async () => {
+    const datasource = await AppDataSource;
+    scoreRepository = datasource.getRepository(Score);
+
     console.log(`Logged in as ${client.user?.tag}!`);
 
     wordsList.parseFile(function (data) {
@@ -25,10 +31,10 @@ client.once("ready", () => {
             if (msg.content === wordToSay){
                 // Si l'user qui a répondu n'existe pas encore on le crée, on set son score à 1 et on set 'responded' à true
                 // Sinon on incrémente son score de 1 et on set 'responded' à true si 'responded' était à false (sinon on ne change rien)
-                database.prepare(`INSERT INTO scores (id, score, responded)
-                                VALUES(?, 1, true)
-                                ON CONFLICT(id)
-                                DO UPDATE SET score = CASE WHEN responded=false THEN (score+1) ELSE (score) END, responded=true;`).run(msg.author.id);
+                scoreRepository.query(`INSERT INTO scores (userId, score, responded)
+                                VALUES(${msg.author.id}, 1, true)
+                                ON CONFLICT(userId)
+                                DO UPDATE SET score = CASE WHEN responded=false THEN (score+1) ELSE (score) END, responded=true;`);
                 msg.react("👍").then(() => console.log(msg.author.username + " has replied correctly at " + new Date()));
             }
         }
@@ -36,9 +42,9 @@ client.once("ready", () => {
 });
 
 function startCronJob(array: string[]) {
-    cron.schedule("10 16 17 * * *", async () => {
+    cron.schedule("20 51 19 * * *", async () => {
         // Reset toute la colonne 'responded' de la table score
-        database.prepare("UPDATE scores SET responded=false;").run();
+        await scoreRepository.query("UPDATE scores SET responded=false;");
         const channel: TextChannel = client.channels.cache.find(c => c.id === config.CHANNEL_ID) as TextChannel;
         const server: Guild = client.guilds.cache.get(config.GUILD_ID) as Guild;
         const roleId: Role = server.roles.cache.get(config.ROLE_ID) as Role;
