@@ -4,3 +4,4 @@ export * as currentword from "./currentword";
 export * as mot from "./mot";
 export * as carnet from "./carnet";
 export * as image from "./image";
+export * as bonpoint from "./bonpoint";

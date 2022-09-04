@@ -1,6 +1,7 @@
 import {AbstractIdentifier} from "./generic/abstractIdentifier";
-import {Column, CreateDateColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity} from "typeorm";
 
+@Entity("bon_points")
 export class BonPoint extends AbstractIdentifier {
     @Column()
     userId: string;

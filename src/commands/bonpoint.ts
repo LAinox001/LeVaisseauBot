@@ -6,22 +6,22 @@ import {Image} from "../models/image";
 
 const reactionsNumberNeeded = 2;
 
-export const data = new SlashCommandBuilder().setName("mot").setDescription("Créer un mot pour un utilisateur")
+export const data = new SlashCommandBuilder().setName("bonpoint").setDescription("Créer un bon point pour un utilisateur")
     .addUserOption(option =>
         option.setName("utilisateur")
             .setDescription("La personne qui va prendre un mot dans son carnet")
             .setRequired(true)
     )
     .addStringOption(option =>
-        option.setName("mot")
-            .setDescription("Le mot qui sera écrit dans le carnet")
+        option.setName("raison")
+            .setDescription("La raison du bon point")
             .setRequired(true)
     );
 
 export async function execute(interaction: CommandInteraction) {
     const targettedUser: User = interaction.options.getUser("utilisateur") as User;
     const targettedUserId: string = targettedUser.id;
-    const reasonValue: string = interaction.options.get("mot")?.value as string;
+    const reasonValue: string = interaction.options.get("raison")?.value as string;
     const datasource = await AppDataSource;
     const bonPointRepository = datasource.getRepository(BonPoint);
     const imageRepository = datasource.getRepository(Image);
@@ -33,7 +33,6 @@ export async function execute(interaction: CommandInteraction) {
     // Après 5 minutes : 300000ms
     setTimeout(async function () {
         const reactionsNumber: number = (await messagePoll.reactions.resolve("👍")?.users.fetch())?.size as number;
-
         if(reactionsNumber >= reactionsNumberNeeded) {
             const bonPoint = new BonPoint();
             bonPoint.reason = reasonValue;
