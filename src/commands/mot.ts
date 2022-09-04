@@ -5,7 +5,8 @@ import {Mot} from "../models/mot";
 import {client} from "../consts/client";
 import config from "../consts/config";
 
-const reactionsNumberNeeded = 2;
+const reactionsNumberNeeded = 4;
+const waitingMs = 300000;
 
 export const data = new SlashCommandBuilder().setName("mot").setDescription("Créer un mot pour un utilisateur")
     .addUserOption(option =>
@@ -27,7 +28,7 @@ export async function execute(interaction: CommandInteraction) {
     const motRepository = datasource.getRepository(Mot);
     
     await interaction.reply(`Un nouveau mot a été proposé pour <@${targettedUserId}> pour le motif suivant :\n${motValue}`);
-    const messagePoll = await interaction.followUp(`Réagissez à ce message pour approuver le mot.\nSi le mot atteint ${reactionsNumberNeeded} réactions en 5 minutes, il sera approuvé`);
+    const messagePoll = await interaction.followUp(`Réagissez à ce message pour approuver le mot.\nSi le mot atteint ${reactionsNumberNeeded} réactions en ${waitingMs/60000} minutes, il sera approuvé`);
     messagePoll.react("👍");
 
     // Après 5 minutes : 300000ms
@@ -62,5 +63,5 @@ export async function execute(interaction: CommandInteraction) {
         } else {
             return interaction.followUp(`Le mot n'a pas été approuvé par le conseil de discipline.`);
         }
-    }, 5000);
+    }, waitingMs);
 }

@@ -11,7 +11,4 @@ export class BonPoint extends AbstractIdentifier {
 
     @CreateDateColumn()
     date: Date;
-    
-    @Column()
-    imageName: string;
 }

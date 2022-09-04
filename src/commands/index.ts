@@ -5,3 +5,4 @@ export * as mot from "./mot";
 export * as carnet from "./carnet";
 export * as image from "./image";
 export * as bonpoint from "./bonpoint";
+export * as trade from "./trade";

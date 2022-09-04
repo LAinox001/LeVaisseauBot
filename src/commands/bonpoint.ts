@@ -4,7 +4,8 @@ import AppDataSource from "../database";
 import {BonPoint} from "../models/bonPoint";
 import {Image} from "../models/image";
 
-const reactionsNumberNeeded = 2;
+const reactionsNumberNeeded = 4;
+const waitingMs = 300000;
 
 export const data = new SlashCommandBuilder().setName("bonpoint").setDescription("Créer un bon point pour un utilisateur")
     .addUserOption(option =>
@@ -27,7 +28,7 @@ export async function execute(interaction: CommandInteraction) {
     const imageRepository = datasource.getRepository(Image);
 
     await interaction.reply(`Un nouveau bon point a été proposé pour <@${targettedUserId}> pour le motif suivant :\n${reasonValue}`);
-    const messagePoll = await interaction.followUp(`Réagissez à ce message pour approuver le bon point.\nSi le bon point atteint ${reactionsNumberNeeded} réactions en 5 minutes, il sera approuvé`);
+    const messagePoll = await interaction.followUp(`Réagissez à ce message pour approuver le bon point.\nSi le bon point atteint ${reactionsNumberNeeded} réactions en ${waitingMs/60000} minutes, il sera approuvé`);
     messagePoll.react("👍");
 
     // Après 5 minutes : 300000ms
@@ -43,7 +44,6 @@ export async function execute(interaction: CommandInteraction) {
             }
             const randomNumber: number = Math.floor(Math.random() * ((freeImages.length - 1) + 1));
             const selectedImage = freeImages[randomNumber];
-            bonPoint.imageName = selectedImage.name;
             await bonPointRepository.save(bonPoint);
 
             selectedImage.owned = true;
@@ -54,5 +54,5 @@ export async function execute(interaction: CommandInteraction) {
         } else {
             return interaction.followUp(`Le bon point n'a pas été approuvé par le conseil de discipline.`);
         }
-    }, 5000);
+    }, 300000);
 }
