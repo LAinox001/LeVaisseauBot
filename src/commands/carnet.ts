@@ -1,6 +1,6 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
-import AppDataSource from "../database";
+import {AppDataSource} from "../database";
 import {Mot} from "../models/mot";
 import {BonPoint} from "../models/bonPoint";
 
@@ -15,7 +15,7 @@ export async function execute(interaction: CommandInteraction) {
     const targettedUser: User = interaction.options.getUser("utilisateur") as User;
     const targettedUserId: string = targettedUser.id;
 
-    const datasource = await AppDataSource;
+    const datasource = await AppDataSource.getInstance();
     const motRepository = datasource.getRepository(Mot);
     const bonPointRepository = datasource.getRepository(BonPoint);
     const mots: Mot[] = await motRepository.find({where: {userId: targettedUserId}});

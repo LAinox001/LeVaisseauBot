@@ -6,7 +6,7 @@ import {
     SelectMenuBuilder,
     SelectMenuComponentOptionData
 } from "discord.js";
-import AppDataSource from "../database";
+import {AppDataSource} from "../database";
 import {Image} from "../models/image";
 import {client} from "../consts/client";
 import config from "../consts/config";
@@ -14,7 +14,7 @@ import config from "../consts/config";
 export const data = new SlashCommandBuilder().setName("image").setDescription("Afficher une image que vous possédez");
 
 export async function execute(interaction: CommandInteraction) {
-    const datasource = await AppDataSource;
+    const datasource = await AppDataSource.getInstance();
     const imageRepository = datasource.getRepository(Image);
     const userId = interaction.user.id;
 

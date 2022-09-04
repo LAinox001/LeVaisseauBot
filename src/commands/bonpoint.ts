@@ -1,6 +1,6 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {CommandInteraction, User} from "discord.js";
-import AppDataSource from "../database";
+import {AppDataSource} from "../database";
 import {BonPoint} from "../models/bonPoint";
 import {Image} from "../models/image";
 
@@ -23,7 +23,7 @@ export async function execute(interaction: CommandInteraction) {
     const targettedUser: User = interaction.options.getUser("utilisateur") as User;
     const targettedUserId: string = targettedUser.id;
     const reasonValue: string = interaction.options.get("raison")?.value as string;
-    const datasource = await AppDataSource;
+    const datasource = await AppDataSource.getInstance();
     const bonPointRepository = datasource.getRepository(BonPoint);
     const imageRepository = datasource.getRepository(Image);
 

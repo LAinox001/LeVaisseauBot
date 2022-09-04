@@ -1,6 +1,6 @@
 import {client} from "./consts/client";
 import config from "./consts/config";
-import AppDataSource from "./database";
+import {AppDataSource} from "./database";
 import wordsList from "./consts/wordsList";
 import {Guild, Interaction, Role, TextChannel} from "discord.js";
 import * as cron from "node-cron";
@@ -14,7 +14,7 @@ let scoreRepository: Repository<Score>;
 let currentWord: string = "";
 
 client.once("ready", async () => {
-    const datasource = await AppDataSource;
+    const datasource = await AppDataSource.getInstance();
     scoreRepository = datasource.getRepository(Score);
 
     console.log(`Logged in as ${client.user?.tag}!`);

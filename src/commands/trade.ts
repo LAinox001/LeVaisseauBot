@@ -7,7 +7,7 @@ import {
     SelectMenuComponentOptionData,
     User
 } from "discord.js";
-import AppDataSource from "../database";
+import {AppDataSource} from "../database";
 import {Image} from "../models/image";
 import {client} from "../consts/client";
 import {Repository} from "typeorm";
@@ -28,7 +28,7 @@ export async function execute(interaction: CommandInteraction) {
     targettedUserId = targettedUser.id;
     userId = interaction.user.id;
 
-    const datasource = await AppDataSource;
+    const datasource = await AppDataSource.getInstance();
     imageRepository = datasource.getRepository(Image);
 
     const images = await imageRepository.findBy({userId: userId});

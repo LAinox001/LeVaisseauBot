@@ -1,6 +1,6 @@
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {Collection, CommandInteraction, Guild, GuildMember, User} from "discord.js";
-import AppDataSource from "../database";
+import {AppDataSource} from "../database";
 import {Mot} from "../models/mot";
 import {client} from "../consts/client";
 import config from "../consts/config";
@@ -24,7 +24,7 @@ export async function execute(interaction: CommandInteraction) {
     const targettedUser: User = interaction.options.getUser("utilisateur") as User;
     const targettedUserId: string = targettedUser.id;
     const motValue: string = interaction.options.get("mot")?.value as string;
-    const datasource = await AppDataSource;
+    const datasource = await AppDataSource.getInstance();
     const motRepository = datasource.getRepository(Mot);
     
     await interaction.reply(`Un nouveau mot a été proposé pour <@${targettedUserId}> pour le motif suivant :\n${motValue}`);
