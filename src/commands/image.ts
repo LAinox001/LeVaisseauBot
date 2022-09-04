@@ -18,6 +18,9 @@ export async function execute(interaction: CommandInteraction) {
     const userId = interaction.user.id;
 
     const images = await imageRepository.findBy({userId: userId});
+    if(images.length === 0) {
+        return interaction.reply("Vous n'avez pas d'image.");
+    }
     const options: RestOrArray<APISelectMenuOption | SelectMenuOptionBuilder | SelectMenuComponentOptionData> = [];
     images.forEach(image => {
         options.push({
@@ -30,7 +33,7 @@ export async function execute(interaction: CommandInteraction) {
         .addComponents(
             new SelectMenuBuilder()
                 .setCustomId("select-image")
-                .setPlaceholder("Rien n'est sélectionné")
+                .setPlaceholder("Rien n'est sélectionné.")
                 .setOptions(options),
         );
 
