@@ -42,7 +42,7 @@ client.once("ready", async () => {
 });
 
 function startCronJob(array: string[]) {
-    cron.schedule("20 51 19 * * *", async () => {
+    cron.schedule("0 0 18 * * *", async () => {
         // Reset toute la colonne 'responded' de la table score
         await scoreRepository.query("UPDATE scores SET responded=false;");
         const channel: TextChannel = client.channels.cache.find(c => c.id === config.CHANNEL_ID) as TextChannel;

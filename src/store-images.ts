@@ -3,7 +3,7 @@ import * as cron from "node-cron";
 import * as fs from "fs";
 import {Image} from "./models/image";
 
-cron.schedule("*/10 * * * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
     const datasource = await AppDataSource;
     const imageRepository = datasource.getRepository(Image);
     const imagesInDb = await imageRepository.find();
