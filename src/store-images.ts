@@ -19,6 +19,7 @@ cron.schedule("*/1 * * * *", async () => {
             }
         });
     });
+    return;
 }, {
     timezone: "Europe/Paris"
 });

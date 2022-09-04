@@ -8,13 +8,11 @@ import {
     User
 } from "discord.js";
 import AppDataSource from "../database";
-import {BonPoint} from "../models/bonPoint";
 import {Image} from "../models/image";
 import {client} from "../consts/client";
 import {Repository} from "typeorm";
 
 let imageRepository: Repository<Image>;
-let bonPointRepository: Repository<BonPoint>;
 let targettedUserId: string;
 let userId: string;
 
@@ -31,7 +29,6 @@ export async function execute(interaction: CommandInteraction) {
     userId = interaction.user.id;
 
     const datasource = await AppDataSource;
-    bonPointRepository = datasource.getRepository(BonPoint);
     imageRepository = datasource.getRepository(Image);
 
     const images = await imageRepository.findBy({userId: userId});

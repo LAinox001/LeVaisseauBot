@@ -1,6 +1,5 @@
 import {AbstractIdentifier} from "./generic/abstractIdentifier";
-import {Column, Entity, JoinColumn, OneToOne} from "typeorm";
-import {BonPoint} from "./bonPoint";
+import {Column, Entity} from "typeorm";
 
 @Entity("images")
 export class Image extends AbstractIdentifier {

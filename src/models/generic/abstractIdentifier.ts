@@ -1,4 +1,4 @@
-import {Column, PrimaryGeneratedColumn} from "typeorm";
+import {PrimaryGeneratedColumn} from "typeorm";
 
 export abstract class AbstractIdentifier {
     @PrimaryGeneratedColumn()
