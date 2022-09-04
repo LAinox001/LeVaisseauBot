@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import config from "./config";
 
 type CallbackFunction = {
     (data: Buffer): void;
@@ -7,7 +8,7 @@ type CallbackFunction = {
 // Reading list from json file
 export default module.exports = {
     parseFile: function(callback: CallbackFunction) {
-        fs.readFile("src/consts/wordsList.json", function(err: NodeJS.ErrnoException|null, data: Buffer) {
+        fs.readFile(config.ROOT_DIRECTORY + "consts/wordsList.json", function(err: NodeJS.ErrnoException|null, data: Buffer) {
             if (err) {
                 throw err;
             }

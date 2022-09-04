@@ -9,6 +9,7 @@ import {
 import AppDataSource from "../database";
 import {Image} from "../models/image";
 import {client} from "../consts/client";
+import config from "../consts/config";
 
 export const data = new SlashCommandBuilder().setName("image").setDescription("Afficher une image que vous possédez");
 
@@ -46,7 +47,7 @@ client.on("interactionCreate", async (interaction) => {
         const filename = interaction.values[0];
         await interaction.reply({
             files: [
-                "src/images/" + filename
+                config.ROOT_DIRECTORY + "images/" + filename
             ]
         });
         await interaction.message.edit({components: []});
