@@ -26,7 +26,7 @@ export async function execute(interaction: CommandInteraction) {
     const datasource = await AppDataSource;
     const motRepository = datasource.getRepository(Mot);
     
-    await interaction.reply(`Un nouveau a été proposé pour <@${targettedUserId}> pour le motif suivant :\n${motValue}`);
+    await interaction.reply(`Un nouveau mot a été proposé pour <@${targettedUserId}> pour le motif suivant :\n${motValue}`);
     const messagePoll = await interaction.followUp(`Réagissez à ce message pour approuver le mot.\nSi le mot atteint ${reactionsNumberNeeded} réactions en 5 minutes, il sera approuvé`);
     messagePoll.react("👍");
 
