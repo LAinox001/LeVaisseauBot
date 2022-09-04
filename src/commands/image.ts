@@ -37,7 +37,7 @@ export async function execute(interaction: CommandInteraction) {
                 .setOptions(options),
         );
 
-    return interaction.reply({content: "Veuillez choisir une image", components: [row]});
+    return interaction.reply({content: "Veuillez choisir une image", components: [row], ephemeral: true });
 }
 
 client.on("interactionCreate", async (interaction) => {

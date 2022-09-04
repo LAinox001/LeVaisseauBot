@@ -38,6 +38,9 @@ export async function execute(interaction: CommandInteraction) {
             bonPoint.reason = reasonValue;
             bonPoint.userId = targettedUserId;
             const freeImages = await imageRepository.find({where: {owned: false}});
+            if(freeImages.length === 0) {
+                return interaction.followUp("Plus aucune image n'est disponible. Ajoutez une image et recréez le bon point.");
+            }
             const randomNumber: number = Math.floor(Math.random() * ((freeImages.length - 1) + 1));
             const selectedImage = freeImages[randomNumber];
             bonPoint.imageName = selectedImage.name;
