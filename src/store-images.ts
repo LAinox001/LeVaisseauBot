@@ -6,9 +6,10 @@ import {Image} from "./models/image";
 cron.schedule("*/10 * * * *", async () => {
     const datasource = await AppDataSource;
     const imageRepository = datasource.getRepository(Image);
+    const imagesInDb = await imageRepository.find();
     fs.readdir("src/images", (err, files) => {
         files.forEach(async file => {
-            if(await imageRepository.findOneBy({name: file}) == null) {
+            if(imagesInDb.find(image => image.name === file) == null) {
                 const image = new Image();
                 image.name = file;
                 image.owned = false;
