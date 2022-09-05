@@ -3,7 +3,7 @@ import config from "./consts/config";
 import {AppDataSource} from "./database";
 import wordsList from "./consts/wordsList";
 import {Guild, Interaction, Role, TextChannel} from "discord.js";
-import * as cron from "node-cron";
+import * as cron from "cron";
 import * as commandModules from "./commands";
 import {Score} from "./models/score";
 import {Repository} from "typeorm";
@@ -42,7 +42,7 @@ client.once("ready", async () => {
 });
 
 function startCronJob(array: string[]) {
-    cron.schedule("0 0 18 * * *", async () => {
+    const cronJob = new cron.CronJob("0 0 18 * * *", async () => {
         // Reset toute la colonne 'responded' de la table score
         await scoreRepository.query("UPDATE scores SET responded=false;");
         const channel: TextChannel = client.channels.cache.find(c => c.id === config.CHANNEL_ID) as TextChannel;
@@ -56,9 +56,8 @@ function startCronJob(array: string[]) {
         await channel.send(`Définition de ${currentWord} : \n 
         - https://www.larousse.fr/dictionnaires/francais/${currentWord} \n 
         - https://www.universalis.fr/dictionnaire/${currentWord}`);
-    }, {
-        timezone: "Europe/Paris"
     });
+    cronJob.start();
 }
 
 client.on("interactionCreate", (interaction: Interaction) => {

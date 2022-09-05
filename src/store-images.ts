@@ -1,10 +1,10 @@
 import {AppDataSource} from "./database";
-import * as cron from "node-cron";
+import * as cron from "cron";
 import * as fs from "fs";
 import {Image} from "./models/image";
 import config from "./consts/config";
 
-cron.schedule("*/1 * * * *", async () => {
+const cronJob = new cron.CronJob("*/1 * * * *", async () => {
     const datasource = await AppDataSource.getInstance();
     const imageRepository = datasource.getRepository(Image);
     const imagesInDb = await imageRepository.find();
@@ -20,6 +20,6 @@ cron.schedule("*/1 * * * *", async () => {
         });
     });
     return;
-}, {
-    timezone: "Europe/Paris"
 });
+
+cronJob.start();
