@@ -25,7 +25,6 @@ export async function execute(interaction: CommandInteraction) {
 
     if(imagesNumber > 12) {
         const pagesNumber = Math.ceil(imagesNumber/12);
-        console.log(pagesNumber);
 
         const options: RestOrArray<APISelectMenuOption | SelectMenuOptionBuilder | SelectMenuComponentOptionData> = [];
         for(let i = 1; i <= pagesNumber; i++) {
