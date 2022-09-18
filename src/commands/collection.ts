@@ -55,7 +55,7 @@ async function createImage(userId: string, pageNumber: number): Promise<Attachme
     const datasource = await AppDataSource.getInstance();
     const imageRepository = datasource.getRepository(Image);
 
-    const images = await imageRepository.find({ where: { userId: userId }, skip: 12 * pageNumber, take: 12});
+    const images = await imageRepository.find({ where: { userId: userId }, order: { name: "ASC" }, skip: 12 * pageNumber, take: 12});
 
     const imagesNumber = images.length;
     const linesNumber = Math.ceil(imagesNumber/4);

@@ -3,9 +3,10 @@ import {CommandInteraction, User} from "discord.js";
 import {AppDataSource} from "../database";
 import {BonPoint} from "../models/bonPoint";
 import {Image} from "../models/image";
+import {IsNull} from "typeorm";
 
-const reactionsNumberNeeded = 4;
-const waitingMs = 300000;
+const reactionsNumberNeeded = 2;
+const waitingMs = 3000;
 
 export const data = new SlashCommandBuilder().setName("bonpoint").setDescription("Créer un bon point pour un utilisateur")
     .addUserOption(option =>
@@ -38,7 +39,7 @@ export async function execute(interaction: CommandInteraction) {
             const bonPoint = new BonPoint();
             bonPoint.reason = reasonValue;
             bonPoint.userId = targettedUserId;
-            const freeImages = await imageRepository.find({where: {owned: false}});
+            const freeImages = await imageRepository.find({where: {userId: IsNull()}});
             if(freeImages.length === 0) {
                 return interaction.followUp("Plus aucune image n'est disponible. Ajoutez une image et recréez le bon point.");
             }
@@ -46,7 +47,6 @@ export async function execute(interaction: CommandInteraction) {
             const selectedImage = freeImages[randomNumber];
             await bonPointRepository.save(bonPoint);
 
-            selectedImage.owned = true;
             selectedImage.userId = targettedUserId;
             await imageRepository.save(selectedImage);
 
@@ -54,5 +54,5 @@ export async function execute(interaction: CommandInteraction) {
         } else {
             return interaction.followUp(`Le bon point n'a pas été approuvé par le conseil de discipline.`);
         }
-    }, 300000);
+    }, waitingMs);
 }

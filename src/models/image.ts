@@ -7,7 +7,10 @@ export class Image extends AbstractIdentifier {
     name: string;
 
     @Column()
-    owned: boolean;
+    collection: string;
+
+    @Column()
+    number: number;
 
     @Column({ nullable: true })
     userId: string;

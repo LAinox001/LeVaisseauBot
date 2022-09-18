@@ -11,9 +11,14 @@ const cronJob = new cron.CronJob("*/1 * * * *", async () => {
     fs.readdir(config.ROOT_DIRECTORY + "images", (err, files) => {
         files.forEach(async file => {
             if(imagesInDb.find(image => image.name === file) == null) {
+                const fileNameSplit = file.split("-");
+                const collectionName = fileNameSplit[0];
+                const imageNumber = parseInt(fileNameSplit[1]);
+
                 const image = new Image();
                 image.name = file;
-                image.owned = false;
+                image.collection = collectionName;
+                image.number = imageNumber;
                 await imageRepository.save(image);
                 return console.log(file + " saved to DB");
             }
