@@ -5,7 +5,7 @@ import {BonPoint} from "../models/bonPoint";
 import {Image} from "../models/image";
 import {IsNull} from "typeorm";
 
-const reactionsNumberNeeded = 2;
+const reactionsNumberNeeded = 4;
 const waitingMs = 300000;
 
 export const data = new SlashCommandBuilder().setName("bonpoint").setDescription("Créer un bon point pour un utilisateur")
